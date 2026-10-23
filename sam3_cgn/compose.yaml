@@ -1,0 +1,27 @@
+services:
+  sam3:
+    build: .
+    image: sam3_ros
+    container_name: sam3_ros
+
+    network_mode: host
+    privileged: true
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=0
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+      - FASTDDS_BUILTIN_TRANSPORTS=UDPv4
+      
+    volumes:
+      - ./:/workspace/sam3_cgn
+      - ../shared/cgn:/shared/cgn
+      - ../huggingface_cache:/root/.cache/huggingface
+      - /dev/bus/usb:/dev/bus/usb
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+    gpus: all
+
+    stdin_open: true
+    tty: true
