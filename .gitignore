@@ -1,0 +1,53 @@
+# SAM3 — Original source code and downloaded model cache
+/sam3_cgn/sam3/
+/sam3_cgn/huggingface_cache/
+
+# Contact-GraspNet — Original NVIDIA repository
+/contact_graspnet/contact_graspnet/
+
+# ROS 2 — Generated build files
+**/build/
+**/install/
+**/log/
+
+# Python — Cache and generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Model checkpoints and weights
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.hdf5
+*.safetensors
+
+# Contact-GraspNet — Generated inference data
+/shared/cgn/*
+!/shared/cgn/.gitkeep
+*.npz
+*.npy
+
+# Locally compiled PointNet++ CUDA operators
+/contact_graspnet/cuda118_ops/
+
+# Temporary files and logs
+*.tmp
+*.swp
+*.swo
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
