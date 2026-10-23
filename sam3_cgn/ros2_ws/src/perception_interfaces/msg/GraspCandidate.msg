@@ -1,0 +1,3 @@
+geometry_msgs/Pose pose
+float32 score
+geometry_msgs/Point contact_point
