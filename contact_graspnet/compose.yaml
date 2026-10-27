@@ -12,7 +12,7 @@ services:
   
     volumes:
       - ./contact_graspnet:/workspace/contact_graspnet
-      - ./shared/cgn:/shared/cgn
+      - ../shared/cgn:/shared/cgn
       - /tmp/.X11-unix:/tmp/.X11-unix
 
     stdin_open: true
