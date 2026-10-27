@@ -3,6 +3,7 @@ services:
     build: .
     image: contact_graspnet
     container_name: contact_graspnet
+    command: python /workspace/cgn_worker.py # Automatically start the CGN inference worker
 
     gpus: all
 
