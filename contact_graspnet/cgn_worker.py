@@ -13,11 +13,14 @@ PREDICTIONS_PATH = (
 DONE_PATH = '/shared/cgn/cgn_done'
 results_reported = False
 
-process = None
-
 SHARED_PREDICTIONS_PATH = '/shared/cgn/grasp_predictions.npz'
 
 REQUEST_PATH = '/shared/cgn/run_cgn.request'
+
+# Signal indicating the worker can accept another inference
+READY_PATH = '/shared/cgn/cgn_ready'
+
+process = None
 
 print('CGN worker started. Waiting for inference requests...', flush=True)
 
@@ -50,6 +53,15 @@ def predictions_ready():
 
 while True:
 
+    # Worker is ready only when the previous inference process has exited
+    if process is None or process.poll() is not None:
+        if not os.path.exists(READY_PATH):
+            with open(READY_PATH, 'w') as f:
+                f.write('ready')
+    else:
+        if os.path.exists(READY_PATH):
+            os.remove(READY_PATH)
+
     # Task 1: Start inference when requested
     if os.path.exists(REQUEST_PATH):
 
@@ -66,7 +78,11 @@ while True:
             print('Starting Contact-GraspNet inference...', flush=True)
 
             results_reported = False
-            
+
+            # Worker is no longer available for another inference
+            if os.path.exists(READY_PATH):
+                os.remove(READY_PATH)
+
             process = start_inference()
 
     # Task 2: Check whether predictions are ready
@@ -86,4 +102,4 @@ while True:
 
             print('Grasp predictions ready!', flush=True)
 
-    time.sleep(1)
+    time.sleep(0.2)
