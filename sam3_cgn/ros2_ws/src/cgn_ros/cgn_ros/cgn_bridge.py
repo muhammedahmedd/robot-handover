@@ -8,6 +8,7 @@ from rclpy.qos import qos_profile_sensor_data
 from scipy.spatial.transform import Rotation
 
 import numpy as np
+import cv2 as cv
 
 from geometry_msgs.msg import Pose
 from sensor_msgs.msg import Image, CameraInfo
@@ -213,6 +214,10 @@ class CGNBridge(Node):
             rgb_msg,
             desired_encoding='rgb8'
         )
+
+        # Display the original RGB image before applying the segmentation mask
+        cv.imshow('Original RGB Image', cv.cvtColor(rgb, cv.COLOR_RGB2BGR))
+        cv.waitKey(1)
 
         # Contact-GraspNet segmentation map:
         # 0 = background, 1 = selected object
