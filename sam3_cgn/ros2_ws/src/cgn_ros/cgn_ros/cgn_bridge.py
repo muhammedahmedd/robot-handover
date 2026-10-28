@@ -24,7 +24,7 @@ class CGNBridge(Node):
         self.bridge = CvBridge()
 
         # Store recent depth frames for timestamp matching
-        self.depth_buffer = deque(maxlen=150)
+        self.depth_buffer = deque(maxlen=250)
 
         self.camera_matrix = None
 
@@ -214,10 +214,6 @@ class CGNBridge(Node):
             rgb_msg,
             desired_encoding='rgb8'
         )
-
-        # Display the original RGB image before applying the segmentation mask
-        cv.imshow('Original RGB Image', cv.cvtColor(rgb, cv.COLOR_RGB2BGR))
-        cv.waitKey(1)
 
         # Contact-GraspNet segmentation map:
         # 0 = background, 1 = selected object
