@@ -1,6 +1,13 @@
+# PIper X robtoic arm workspace
+/piperx
+pyAgxArm/
+
+
 # SAM3 — Original source code and downloaded model cache
 /sam3_cgn/sam3/
 /sam3_cgn/huggingface_cache/
+huggingface_cache/
+
 
 # Contact-GraspNet — Original NVIDIA repository
 /contact_graspnet/contact_graspnet/
