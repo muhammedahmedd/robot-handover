@@ -29,8 +29,6 @@ class SAM3Node(Node):
 
         self.bridge = CvBridge()
 
-        self.segmentation_complete = False
-
         self.image_sub = self.create_subscription(
             Image,
             '/camera/camera/color/image_raw',
@@ -47,9 +45,6 @@ class SAM3Node(Node):
         self.get_logger().info('SAM3 ROS node started')
 
     def image_callback(self, msg):
-
-        if self.segmentation_complete:
-            return
 
         cv_image = self.bridge.imgmsg_to_cv2(
             msg,
@@ -96,7 +91,6 @@ class SAM3Node(Node):
 
             self.segmentation_pub.publish(seg_msg)
 
-            self.segmentation_complete = True
 
 
 def main(args=None):
